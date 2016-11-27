@@ -1,0 +1,15 @@
+options:
+  verbose: true
+  unison_image: 'eugenmayer/unison'
+  cli_mode: 'auto'
+  compose-file-path: 'docker-compose.yml'
+  compose-dev-file-path: 'docker-compose-dev.yml'
+syncs:
+  #IMPORTANT: ensure this name is unique and does not match your other application container name
+  drupal-unison-sync: # tip: add -sync and you keep consistent names als a convention
+    src: './app'
+    dest: '/mnt/app'
+    # sync_user: 'www-data'
+    sync_userid: '33'
+    sync_strategy: 'unison'
+    sync_excludes: ['database', '.DS_Store','*/sites/default/settings.php', '*/sites/default/files/css', '*/sites/default/files/js', '*/sites/default/files/php']
