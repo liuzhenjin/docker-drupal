@@ -26,3 +26,14 @@ function redis_help($route_name, RouteMatchInterface $route_match) {
       return $messages;
   }
 }
+
+/**
+ * Implements hook_cache_flush().
+ */
+// https://www.drupal.org/files/issues/redis-drush_cr-2765895-4.patch
+function redis_cache_flush() {
+  if (ClientFactory::hasClient()) {
+    $redis_client = ClientFactory::getClient();
+    $redis_client->flushAll();
+  }
+}
